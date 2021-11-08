@@ -6,7 +6,9 @@ on:
       - '**/*.kts'
       - '**/src/**'
       - '*gradle*'
-      - '.github/workflows/*'
+      - .dockerignore
+      - .github/workflows/*
+      - Dockerfile
 jobs:
   test:
     name: Run tests
