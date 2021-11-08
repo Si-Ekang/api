@@ -15,6 +15,8 @@ All notable changes to this project will be documented in this file.
 - `Security` in case of vulnerabilities.
 
 ## Work in progress
+
+## Version 0.1.0 - 2021/11/08
 ### Added
 - Create a new server with [Ktor](https://ktor.io/).
 - Create [OpenAPI](https://swagger.io/specification/) documentation.
