@@ -1,0 +1,19 @@
+get:
+  summary: Get random questions
+  operationId: get-questions
+  description: This route retrieves a list of 15 random questions.
+  tags: [ Work in progress ]
+  responses:
+    200:
+      description: Successfully found random questions.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/question.yml
+            maxItems: 15
+            minItems: 15
+            uniqueItems: true
+    500:
+      $ref: ../../components/responses.yml#/500

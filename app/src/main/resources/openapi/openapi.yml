@@ -14,7 +14,7 @@ servers:
     variables:
       host:
         descriptions: Server's host
-        default: 0.0.0.0
+        default: localhost
         enum: [ 0.0.0.0, localhost ]
       port:
         descriptions: Server's port
@@ -25,4 +25,10 @@ servers:
 tags:
   - name: Work in progress
     description: Operations that we are currently building.
-paths: { }
+paths:
+  questions:
+    $ref: paths/questions.yml
+components:
+  schemas:
+    Question:
+      $ref: components/schemas/question.yml

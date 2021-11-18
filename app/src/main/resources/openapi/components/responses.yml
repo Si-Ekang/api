@@ -1,0 +1,4 @@
+500:
+  description: An internal error has occurred.
+501:
+  description: Not implemented yet.

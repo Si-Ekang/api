@@ -1,0 +1,19 @@
+type: object
+properties:
+  id:
+    type: string
+    example: 5e34dd0a-f9fb-4dc1-b9ae-0ae2e7d84107
+  title:
+    type: string
+    example: How do you say dog in french?
+  answer:
+    type: string
+    example: chien
+  suggestions:
+    type: array
+    items:
+      type: string
+      example: cat
+    maxItems: 3
+    minItems: 3
+    uniqueItems: true
