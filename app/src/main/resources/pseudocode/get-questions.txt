@@ -1,0 +1,40 @@
+HttpResponse<T> = { body: T, code: Int }
+Language = "fang" | "français"
+Question = {
+    answer: String,
+    language: Language,
+    suggestions: Set<String>,
+    word: String
+}
+Translation = Map<Language, String>
+
+getQuestions(n: Int) -> HttpResponse<Set<Question>> :
+    if (!translationsFileExists())
+        message = "Unable to generate questions without translations file!"
+        return internalServerError(message)
+    translations: Set<Translation> = readTranslationsFile()
+    if (translations.size == 0 || translations.size < n)
+        return internalServerError("Not enough translations available!")
+    questions: Set<Question> = emptySet()
+    while (questions.size < n)
+        translation: Translation = translations.getRandomItem()
+        while (questions.contains(translation))
+            translation = translations.getRandomItem()
+        language: Language = Language.values()
+                .getRandomItem()
+        word: String = translation.filter { it.key != language }
+                .first().value
+        answer: String = translation[language]
+        suggestions: Set<String> = emptySet()
+        for (i = 0; i < 3; i++)
+            suggestion: Translation = translations.getRandomItem()
+            while (translation == suggestion || suggestions.contains(suggestion))
+                suggestion = translations.getRandomItem()
+            value: String = suggestion[language]
+            suggestions.add(value)
+        question = Question(word, answer, language, suggestions)
+        questions.add(question)
+    return HttpResponse(code = 200, body = questions)
+
+internalServerError(message: String) -> HttpResponse<String> :
+    return HttpResponse(code = 500, body = message)
