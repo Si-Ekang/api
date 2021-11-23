@@ -4,7 +4,7 @@ import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
-import routing.questions
+import questions.get.getRandomQuestions
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -20,7 +20,7 @@ fun Application.main(testing: Boolean = false) {
     }
     routing {
         serveDocs()
-        route(Version.V0.toString(), Route::questions)
+        route(Version.V0.toString(), Route::getRandomQuestions)
     }
 }
 
