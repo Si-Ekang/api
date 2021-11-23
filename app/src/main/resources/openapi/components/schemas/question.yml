@@ -1,19 +1,22 @@
 type: object
 properties:
+  answer:
+    type: string
+    example: kisin
   id:
     type: string
     example: 5e34dd0a-f9fb-4dc1-b9ae-0ae2e7d84107
-  title:
+  language:
     type: string
-    example: How do you say dog in french?
-  answer:
-    type: string
-    example: chien
+    enum: [ fang, français ]
   suggestions:
     type: array
     items:
       type: string
-      example: cat
+      example: akang
     maxItems: 3
     minItems: 3
     uniqueItems: true
+  word:
+    type: string
+    example: cuisine
