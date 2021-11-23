@@ -1,9 +1,9 @@
+import docs.serveDocs
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
-import routing.docs
 import routing.questions
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -19,7 +19,7 @@ fun Application.main(testing: Boolean = false) {
         host(host = "localhost")
     }
     routing {
-        docs()
+        serveDocs()
         route(Version.V0.toString(), Route::questions)
     }
 }

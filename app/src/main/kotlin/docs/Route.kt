@@ -1,9 +1,9 @@
-package routing
+package docs
 
 import io.ktor.http.content.*
 import io.ktor.routing.*
 
-fun Routing.docs() {
+fun Routing.serveDocs() {
     static {
         resources(resourcePackage = "openapi")
         resource(remotePath = "/", resource = "openapi/index.html")
