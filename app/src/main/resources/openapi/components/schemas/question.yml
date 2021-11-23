@@ -3,9 +3,6 @@ properties:
   answer:
     type: string
     example: kisin
-  id:
-    type: string
-    example: 5e34dd0a-f9fb-4dc1-b9ae-0ae2e7d84107
   language:
     type: string
     enum: [ fang, français ]
