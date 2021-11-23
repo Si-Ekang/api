@@ -5,7 +5,7 @@ properties:
     example: kisin
   language:
     type: string
-    enum: [ fang, français ]
+    enum: [ fang, french ]
   suggestions:
     type: array
     items:
