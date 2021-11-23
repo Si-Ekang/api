@@ -3,7 +3,6 @@ import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
-import routing.Version
 import routing.docs
 import routing.questions
 
@@ -23,4 +22,10 @@ fun Application.main(testing: Boolean = false) {
         docs()
         route(Version.V0.toString(), Route::questions)
     }
+}
+
+enum class Version {
+    V0;
+
+    override fun toString(): String = name.lowercase()
 }
