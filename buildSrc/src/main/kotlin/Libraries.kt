@@ -1,3 +1,5 @@
+const val ARROW: String = "io.arrow-kt:arrow-core:[1.0, 1.1["
+const val CSV: String = "com.github.doyaaaaaken:kotlin-csv-jvm:[1.2, 1.3["
 const val LOGBACK: String = "ch.qos.logback:logback-classic:[1.2, 1.3["
 
 object Kotlin {

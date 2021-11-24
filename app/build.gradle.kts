@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    setOf(Ktor.NETTY, Ktor.SERIALIZATION, LOGBACK)
+    setOf(ARROW, CSV, Ktor.NETTY, Ktor.SERIALIZATION, LOGBACK)
         .forEach(this::implementation)
 
     setOf(kotlin(module = "test"), Ktor.TEST)
