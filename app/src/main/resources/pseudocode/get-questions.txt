@@ -14,7 +14,7 @@ getQuestions(n: Int) -> HttpResponse<Set<Question>> :
         return internalServerError(message)
     translations: Set<Translation> = readTranslationsFile()
     if (translations.size == 0 || translations.size < n)
-        return internalServerError("Not enough translations available!")
+        return HttpResponse(code = 400, body = "Not enough translations available!")
     questions: Set<Question> = emptySet()
     while (questions.size < n)
         translation: Translation = translations.getRandomItem()
