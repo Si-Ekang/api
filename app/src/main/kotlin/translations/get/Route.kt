@@ -1,4 +1,4 @@
-package translations
+package translations.get
 
 import io.ktor.application.*
 import io.ktor.http.*
