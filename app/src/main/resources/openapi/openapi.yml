@@ -26,9 +26,9 @@ tags:
   - name: Work in progress
     description: Operations that we are currently building.
 paths:
-  questions:
-    $ref: paths/questions.yml
+  translations:
+    $ref: paths/translations.yml
 components:
   schemas:
-    Question:
-      $ref: components/schemas/question.yml
+    Translation:
+      $ref: components/schemas/translation.yml

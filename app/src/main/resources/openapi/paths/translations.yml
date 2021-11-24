@@ -1,0 +1,35 @@
+get:
+  summary: Get translations with pagination
+  operationId: get-translations-with-pagination
+  description:
+    This route retrieves a given number of translations for the given page.
+  tags: [ Work in progress ]
+  parameters:
+    - name: page
+      in: query
+      description: Page index.
+      required: true
+      example: 1
+    - name: size
+      in: query
+      description: Number of translations to return.
+      required: true
+      example: 30
+  responses:
+    200:
+      description: Successfully found translations.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/translation.yml
+            maxItems: 40
+            minItems: 10
+            uniqueItems: true
+    204:
+      description: No translation available for this page.
+    400:
+      description: Invalid parameters.
+    500:
+      $ref: ../../components/responses.yml#/500
