@@ -4,7 +4,6 @@ import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
-import questions.get.getRandomQuestions
 import translations.get.getTranslationsWithPagination
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -21,10 +20,7 @@ fun Application.main(testing: Boolean = false) {
     }
     routing {
         serveDocs()
-        route(Version.V0.toString()) {
-            getRandomQuestions()
-            getTranslationsWithPagination()
-        }
+        route(Version.V0.toString(), Route::getTranslationsWithPagination)
     }
 }
 
