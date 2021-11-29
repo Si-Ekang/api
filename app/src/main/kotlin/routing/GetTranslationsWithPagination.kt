@@ -1,4 +1,4 @@
-package translations.get
+package routing
 
 import io.ktor.application.*
 import io.ktor.http.*

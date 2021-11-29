@@ -1,4 +1,4 @@
-package docs
+package routing
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
@@ -7,7 +7,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class RouteTest {
+class ServeDocsTest {
     @Test
     fun `should pass`(): Unit = withTestApplication({ main(testing = true) }) {
         handleRequest(HttpMethod.Get, uri = "/").apply {

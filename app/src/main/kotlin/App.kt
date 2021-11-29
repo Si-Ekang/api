@@ -1,10 +1,10 @@
-import docs.serveDocs
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
-import translations.get.getTranslationsWithPagination
+import routing.getTranslationsWithPagination
+import routing.serveDocs
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 

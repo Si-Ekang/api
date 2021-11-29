@@ -1,4 +1,4 @@
-package docs
+package routing
 
 import io.ktor.http.content.*
 import io.ktor.routing.*
