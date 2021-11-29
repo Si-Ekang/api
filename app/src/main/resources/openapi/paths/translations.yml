@@ -14,7 +14,7 @@ get:
       in: query
       description: Number of translations to return.
       required: true
-      example: 30
+      example: 10
   responses:
     200:
       description: Successfully found translations.
