@@ -1,6 +1,6 @@
 get:
-  summary: Get translations with pagination
-  operationId: get-translations-with-pagination
+  summary: Get paginated translations
+  operationId: get-paginated-translations
   description:
     This route retrieves a given number of translations for the given page.
   tags: [ Work in progress ]
