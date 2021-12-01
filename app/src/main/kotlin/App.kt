@@ -1,5 +1,7 @@
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.http.HttpStatusCode.Companion.InternalServerError
+import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
@@ -12,6 +14,9 @@ fun Application.main(testing: Boolean = false) {
     install(ContentNegotiation) {
         val instance = Json { prettyPrint = true }
         json(instance)
+    }
+    install(StatusPages) {
+        exception<Throwable> { call.respond(InternalServerError) }
     }
     if (!testing) install(CORS) {
         host(host = "0.0.0.0")
