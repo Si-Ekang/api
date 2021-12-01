@@ -1,4 +1,4 @@
-package routing
+package exposition.routes
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
