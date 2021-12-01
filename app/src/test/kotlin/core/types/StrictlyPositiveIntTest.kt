@@ -9,9 +9,16 @@ class StrictlyPositiveIntTest {
     fun `creation should pass`() {
         1.strictlyPositive()
             .let(::assertNotNull)
+        "1".toStrictlyPositiveInt()
+            .let(::assertNotNull)
     }
 
     @Test
-    fun `creation should fail`(): Unit = 0.strictlyPositive()
-        .let(::assertNull)
+    fun `creation should fail`() {
+        0.strictlyPositive()
+            .let(::assertNull)
+        listOf("0", "a")
+            .map(String::toStrictlyPositiveInt)
+            .forEach(::assertNull)
+    }
 }

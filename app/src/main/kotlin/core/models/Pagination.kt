@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package core.models
 
 import core.types.PaginationSize
@@ -9,4 +11,9 @@ infix fun PaginationSize.withPage(page: StrictlyPositiveInt): Pagination =
 infix fun StrictlyPositiveInt.withSize(size: PaginationSize): Pagination =
     Pagination(page = this, size)
 
-data class Pagination(val page: StrictlyPositiveInt, val size: PaginationSize)
+data class Pagination
+@Deprecated(
+    message = "Use `PaginationSize.withPage` or " +
+            "`StrictlyPositiveInt.withSize` instead."
+)
+constructor(val page: StrictlyPositiveInt, val size: PaginationSize)

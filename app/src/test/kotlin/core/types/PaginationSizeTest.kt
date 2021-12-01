@@ -6,12 +6,22 @@ import kotlin.test.assertNull
 
 class PaginationSizeTest {
     @Test
-    fun `creation should pass`(): Unit = listOf(10, 50)
-        .map(Int::toPaginationSize)
-        .forEach(::assertNotNull)
+    fun `creation should pass`() {
+        listOf(10, 50)
+            .map(Int::toPaginationSize)
+            .forEach(::assertNotNull)
+        listOf("10", "50")
+            .map(String::toPaginationSize)
+            .forEach(::assertNotNull)
+    }
 
     @Test
-    fun `creation should fail`(): Unit = listOf(9, 51)
-        .map(Int::toPaginationSize)
-        .forEach(::assertNull)
+    fun `creation should fail`() {
+        listOf(9, 51)
+            .map(Int::toPaginationSize)
+            .forEach(::assertNull)
+        listOf("9", "51", "a")
+            .map(String::toPaginationSize)
+            .forEach(::assertNull)
+    }
 }

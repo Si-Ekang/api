@@ -1,7 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package core.types
 
-@Suppress("DEPRECATION")
 fun Int.strictlyPositive(): StrictlyPositiveInt? = StrictlyPositiveInt of this
+
+fun String.toStrictlyPositiveInt(): StrictlyPositiveInt? = toIntOrNull()
+    ?.let { StrictlyPositiveInt of it }
 
 @JvmInline
 value class StrictlyPositiveInt private constructor(val value: Int) {
