@@ -1,5 +1,6 @@
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -16,6 +17,9 @@ fun Application.main(testing: Boolean = false) {
         json(instance)
     }
     install(StatusPages) {
+        exception<BadRequestException> {
+            call.respond(BadRequest, it.localizedMessage)
+        }
         exception<Throwable> { call.respond(InternalServerError) }
     }
     if (!testing) install(CORS) {
