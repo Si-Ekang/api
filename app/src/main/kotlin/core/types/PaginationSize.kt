@@ -2,6 +2,8 @@
 
 package core.types
 
+infix operator fun Int.times(other: PaginationSize): Int = this * other.value
+
 fun Int.toPaginationSize(): PaginationSize? = strictlyPositive()
     ?.let { PaginationSize of it }
 
@@ -19,4 +21,8 @@ value class PaginationSize private constructor(val value: StrictlyPositiveInt) {
             value.takeIf { it.value in MIN..MAX }
                 ?.let(::PaginationSize)
     }
+
+    infix operator fun times(other: Int): Int = value * other
+
+    infix operator fun times(other: StrictlyPositiveInt): Int = value * other
 }
