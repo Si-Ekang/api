@@ -31,5 +31,9 @@ get:
       description: No translation available for this page.
     400:
       description: Invalid parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
     500:
       $ref: ../../components/responses.yml#/500
