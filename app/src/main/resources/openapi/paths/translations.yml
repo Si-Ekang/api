@@ -24,13 +24,16 @@ get:
             type: array
             items:
               $ref: ../../components/schemas/translation.yml
-            maxItems: 40
+            maxItems: 50
             minItems: 10
             uniqueItems: true
     204:
       description: No translation available for this page.
     400:
-      description: Invalid parameters.
+      description:
+        Invalid parameters.
+        Given page should be a strictly positive number, and size should be a
+        number in [10, 50].
       content:
         text/plain:
           schema:
