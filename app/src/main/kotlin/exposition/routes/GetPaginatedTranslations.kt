@@ -17,8 +17,8 @@ import io.ktor.response.*
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.coroutineScope
 
-suspend fun HandlerContext.getPaginatedTranslations() =
-    if (application.developmentMode) devImplementation()
+suspend fun HandlerContext.getPaginatedTranslations(testing: Boolean = false) =
+    if (application.developmentMode || testing) devImplementation()
     else call.respond(NotImplemented)
 
 private suspend fun HandlerContext.devImplementation() {

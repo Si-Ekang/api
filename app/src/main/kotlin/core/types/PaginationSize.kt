@@ -13,12 +13,11 @@ fun String.toPaginationSize(): PaginationSize? = toStrictlyPositiveInt()
 @JvmInline
 value class PaginationSize private constructor(val value: StrictlyPositiveInt) {
     companion object {
-        private const val MAX: Int = 50
-        private const val MIN: Int = 10
+        val range: IntRange = 10..50
 
         @Deprecated(message = "Use `Int.toPaginationSize` instead.")
         infix fun of(value: StrictlyPositiveInt): PaginationSize? =
-            value.takeIf { it.value in MIN..MAX }
+            value.takeIf { it.value in range }
                 ?.let(::PaginationSize)
     }
 

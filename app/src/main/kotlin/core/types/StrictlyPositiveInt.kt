@@ -16,11 +16,11 @@ fun String.toStrictlyPositiveInt(): StrictlyPositiveInt? = toIntOrNull()
 @JvmInline
 value class StrictlyPositiveInt private constructor(val value: Int) {
     companion object {
-        private const val MIN: Int = 0
+        const val MIN: Int = 1
 
         @Deprecated(message = "Use `Int.strictlyPositive` instead.")
         infix fun of(value: Int): StrictlyPositiveInt? =
-            value.takeIf { it > MIN }
+            value.takeIf { it >= MIN }
                 ?.let(::StrictlyPositiveInt)
     }
 
