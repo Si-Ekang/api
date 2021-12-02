@@ -17,19 +17,9 @@ All notable changes to this project will be documented in this file.
 ## Work in progress
 
 ## Version 1.0.0 - 2021/12/02
-### Fixed
-- Fix translations file reading from jar in production.
-
-## Version 0.2.1 - 2021/12/02
-### Changed
-- Optimize paginated translations retrieving.
-
-### Fixed
-- Group translations related operations in the documentation.
-
-## Version 0.2.0 - 2021/12/02
 ### Added
 - Create the route `GET /translations` for retrieving paginated translations.
+- Tag for grouping operations related to translations in the documentation.
 
 ## Version 0.1.0 - 2021/11/08
 ### Added
