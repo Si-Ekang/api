@@ -5,7 +5,7 @@ plugins { kotlin(module = "jvm") version Kotlin.VERSION apply false }
 
 allprojects {
     group = "com.ekang-api"
-    version = "0.2.2"
+    version = "1.0.0"
 
     repositories(RepositoryHandler::mavenCentral)
 
