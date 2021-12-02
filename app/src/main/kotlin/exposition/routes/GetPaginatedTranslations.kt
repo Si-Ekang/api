@@ -21,7 +21,9 @@ suspend fun HandlerContext.getPaginatedTranslations() {
         val lines: Deferred<List<Map<String, String>>> =
             getTranslationsFromFileAsync(classLoader)
         val pagination: Pagination = getPaginationFromQueryParameters()
-        lines.await() toPaginatedTranslations pagination
+        (lines.await() getPage pagination)
+            .map { it.toTranslation() ?: error("Translation creation failed.") }
+            .toSet()
     }
     if (translations.isEmpty()) call.respond(NoContent)
     else call.respond(OK, translations)
@@ -34,9 +36,3 @@ private fun HandlerContext.getPaginationFromQueryParameters(): Pagination {
         getQueryParameterAs(name = "size", String::toPaginationSize)
     return page withSize size
 }
-
-private infix fun List<Map<String, String>>.toPaginatedTranslations(
-    pagination: Pagination
-): Set<Translation> = subList(pagination)
-    .map { it.toTranslation() ?: error("Translation creation failed.") }
-    .toSet()
