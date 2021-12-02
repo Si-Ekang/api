@@ -11,7 +11,7 @@ infix operator fun Int.times(other: StrictlyPositiveInt): Int =
 fun Int.strictlyPositive(): StrictlyPositiveInt? = StrictlyPositiveInt of this
 
 fun String.toStrictlyPositiveInt(): StrictlyPositiveInt? = toIntOrNull()
-    ?.let { StrictlyPositiveInt of it }
+    ?.strictlyPositive()
 
 @JvmInline
 value class StrictlyPositiveInt private constructor(val value: Int) {
