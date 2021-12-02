@@ -24,7 +24,7 @@ private fun Application.testingModule() {
     installStatusPages()
     routing {
         get(PATH) {
-            handle { getPaginatedTranslations(testing = true) }
+            handle { getPaginatedTranslations() }
         }
     }
 }

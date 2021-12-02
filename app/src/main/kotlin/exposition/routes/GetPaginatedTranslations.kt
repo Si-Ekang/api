@@ -11,17 +11,12 @@ import exposition.types.getQueryParameterAs
 import infrastructure.getTranslationsFromFileAsync
 import io.ktor.application.*
 import io.ktor.http.HttpStatusCode.Companion.NoContent
-import io.ktor.http.HttpStatusCode.Companion.NotImplemented
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.response.*
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.coroutineScope
 
-suspend fun HandlerContext.getPaginatedTranslations(testing: Boolean = false) =
-    if (application.developmentMode || testing) devImplementation()
-    else call.respond(NotImplemented)
-
-private suspend fun HandlerContext.devImplementation() {
+suspend fun HandlerContext.getPaginatedTranslations() {
     val translations: Set<Translation> = coroutineScope {
         val lines: Deferred<List<Map<String, String>>> =
             getTranslationsFromFileAsync(classLoader)
