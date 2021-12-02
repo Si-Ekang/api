@@ -1,26 +1,24 @@
 package core.models
 
-import core.types.strictlyPositive
-import core.types.toPaginationSize
+import core.types.*
 import org.junit.jupiter.api.Nested
+import x.assertEquals
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class PaginationTest {
-    companion object {
-        private const val VALID_PAGE: Int = 1
-        private const val VALID_SIZE: Int = 10
+    private companion object {
+        private const val VALID_PAGE: Int = StrictlyPositiveInt.MIN
     }
+
+    private val randomSize: Int get() = PaginationSize.range.random()
 
     @Nested
     inner class Creation {
         @Test
         fun `should pass`() {
-            val pagination1: Pagination = VALID_SIZE.toPaginationSize()!!
-                .withPage(VALID_PAGE.strictlyPositive()!!)
-            val pagination2: Pagination =
-                pagination1.page withSize pagination1.size
-            assertEquals(pagination1, pagination2)
+            val size: PaginationSize = randomSize.toPaginationSize()!!
+            val page: StrictlyPositiveInt = VALID_PAGE.strictlyPositive()!!
+            (size withPage page) assertEquals (page withSize size)
         }
     }
 
@@ -28,11 +26,12 @@ class PaginationTest {
     inner class ToIndexRange {
         @Test
         fun `should pass`() {
-            val pagination: Pagination = VALID_SIZE.toPaginationSize()!!
-                .withPage(VALID_PAGE.strictlyPositive()!!)
-            val min: Int = (VALID_PAGE - 1) * VALID_SIZE
-            val max: Int = VALID_PAGE * VALID_SIZE - 1
-            assertEquals(pagination.toIndexRange(), actual = min..max)
+            val size: PaginationSize = randomSize.toPaginationSize()!!
+            val page: StrictlyPositiveInt = VALID_PAGE.strictlyPositive()!!
+            val pagination: Pagination = size withPage page
+            val min: Int = (page - 1) * size
+            val max: Int = page * size - 1
+            min..max assertEquals pagination.toIndexRange()
         }
     }
 }
