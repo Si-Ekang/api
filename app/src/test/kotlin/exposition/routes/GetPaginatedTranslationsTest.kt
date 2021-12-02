@@ -10,10 +10,10 @@ import io.ktor.http.*
 import io.ktor.http.HttpMethod.Companion.Get
 import io.ktor.routing.*
 import io.ktor.server.testing.*
+import x.assertEquals
+import x.assertNotNull
+import x.assertNull
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 
 private const val PATH: String = "translations"
 
@@ -42,8 +42,8 @@ class GetPaginatedTranslationsTest {
             val page: Int = StrictlyPositiveInt.MIN
             val size: Int = sizeRange.random()
             val response: TestApplicationResponse = callWith(page, size)
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertNotNull(response.content)
+            HttpStatusCode.OK assertEquals response.status()
+            response.content.assertNotNull()
         }
 
     @Test
@@ -51,8 +51,8 @@ class GetPaginatedTranslationsTest {
         withTestApplication(Application::testingModule) {
             val size: Int = sizeRange.last
             val response: TestApplicationResponse = callWith(page = 1000, size)
-            assertEquals(HttpStatusCode.NoContent, response.status())
-            assertNull(response.content)
+            HttpStatusCode.NoContent assertEquals response.status()
+            response.content.assertNull()
         }
 
     @Test
@@ -61,8 +61,8 @@ class GetPaginatedTranslationsTest {
             val page: Int = StrictlyPositiveInt.MIN - 1
             val size: Int = sizeRange.random()
             val response: TestApplicationResponse = callWith(page, size)
-            assertEquals(HttpStatusCode.BadRequest, response.status())
-            assertNotNull(response.content)
+            HttpStatusCode.BadRequest assertEquals response.status()
+            response.assertNotNull()
         }
 
     @Test
@@ -71,8 +71,8 @@ class GetPaginatedTranslationsTest {
             listOf(sizeRange.first - 1, sizeRange.last + 1)
                 .map { callWith(StrictlyPositiveInt.MIN, it) }
                 .forEach {
-                    assertEquals(HttpStatusCode.BadRequest, it.status())
-                    assertNotNull(it.content)
+                    HttpStatusCode.BadRequest assertEquals it.status()
+                    it.content.assertNotNull()
                 }
         }
 }

@@ -35,9 +35,9 @@ private suspend fun HandlerContext.devImplementation() {
 private fun HandlerContext.getPaginationFromQueryParameters(): Pagination {
     val page: StrictlyPositiveInt =
         getQueryParameterAs(name = "page", String::toStrictlyPositiveInt)
-    val paginationSize: PaginationSize =
+    val size: PaginationSize =
         getQueryParameterAs(name = "size", String::toPaginationSize)
-    return page withSize paginationSize
+    return page withSize size
 }
 
 private infix fun List<Map<String, String>>.toPaginatedTranslations(

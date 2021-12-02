@@ -20,5 +20,8 @@ private fun StatusPages.Configuration.handleBadRequest(): Unit =
 private fun StatusPages.Configuration.handleThrowable(): Unit =
     exception<Throwable> {
         call.respond(HttpStatusCode.InternalServerError)
-        application.log.error(it.stackTraceToString())
+        val message: String =
+            if (it is IllegalStateException) it.localizedMessage
+            else it.stackTraceToString()
+        application.log.error(message)
     }
