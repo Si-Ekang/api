@@ -1,7 +1,6 @@
 package core.types
 
 import org.junit.jupiter.api.Nested
-import x.assertEquals
 import x.assertNotNull
 import x.assertNull
 import kotlin.test.Test
@@ -33,23 +32,6 @@ class PaginationSizeTest {
             listOf(x.toString(), y.toString(), "a")
                 .map(String::toPaginationSize)
                 .forEach(PaginationSize?::assertNull)
-        }
-    }
-
-    @Nested
-    inner class Times {
-        @Test
-        fun `should pass with Int`() {
-            val x: PaginationSize = sizeRange.first.toPaginationSize()!!
-            val y = 2
-            (x * y) assertEquals (y * x)
-        }
-
-        @Test
-        fun `should pass with StrictlyPositiveInt`() {
-            val x: PaginationSize = sizeRange.first.toPaginationSize()!!
-            val y: StrictlyPositiveInt = 2.strictlyPositive()!!
-            (x * y) assertEquals (y * x)
         }
     }
 }
