@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ## Work in progress
 
-## Version 0.2.2 - 2021/12/02
+## Version 1.0.0 - 2021/12/02
 ### Fixed
 - Fix translations file reading from jar in production.
 
