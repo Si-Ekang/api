@@ -9,10 +9,11 @@ import io.ktor.routing.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-fun Application.main(testing: Boolean = false) {
+@Suppress("unused")
+fun Application.main() {
     installContentNegotiation()
+    installCORS()
     installStatusPages()
-    if (!testing) installCORS()
     routing {
         serveDocs()
         get(path = "${Version.V0}/translations") {
