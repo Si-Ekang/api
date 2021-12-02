@@ -15,6 +15,8 @@ All notable changes to this project will be documented in this file.
 - `Security` in case of vulnerabilities.
 
 ## Work in progress
+### Added
+- Create the route `GET /translations` for retrieving paginated translations.
 
 ## Version 0.1.0 - 2021/11/08
 ### Added
