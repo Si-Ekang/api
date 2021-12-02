@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Ekang API
-  version: 0.2.1
+  version: 0.2.2
 servers:
   - description: Production server
     url: https://ekang-api.herokuapp.com/v{version}
