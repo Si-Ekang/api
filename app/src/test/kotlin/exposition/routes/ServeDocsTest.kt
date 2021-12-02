@@ -4,9 +4,9 @@ import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.routing.*
 import io.ktor.server.testing.*
+import x.assertEquals
+import x.assertNotNull
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 private fun Application.testingModule() {
     routing(Routing::serveDocs)
@@ -18,7 +18,7 @@ class ServeDocsTest {
         withTestApplication(Application::testingModule) {
             val response: TestApplicationResponse =
                 handleRequest(HttpMethod.Get, uri = "/").response
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertNotNull(response.content)
+            HttpStatusCode.OK assertEquals response.status()
+            response.content.assertNotNull()
         }
 }
