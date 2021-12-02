@@ -16,6 +16,10 @@ All notable changes to this project will be documented in this file.
 
 ## Work in progress
 
+## Version 1.0.1 - 2021/12/02
+### Fixed
+- Upgrade base routing version to `v1`.
+
 ## Version 1.0.0 - 2021/12/02
 ### Added
 - Create the route `GET /translations` for retrieving paginated translations.
