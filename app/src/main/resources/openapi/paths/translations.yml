@@ -3,7 +3,7 @@ get:
   operationId: get-paginated-translations
   description:
     This route retrieves a given number of translations for the given page.
-  tags: [ Work in progress ]
+  tags: [ Translations ]
   parameters:
     - name: page
       in: query

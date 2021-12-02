@@ -23,6 +23,8 @@ servers:
         descriptions: Major version of the API
         default: '0'
 tags:
+  - name: Translations
+    description: Operations related to translations.
   - name: Work in progress
     description: Operations that we are currently building.
 paths:
