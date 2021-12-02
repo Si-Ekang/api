@@ -14,7 +14,7 @@ class PaginationSizeTest {
     @Nested
     inner class Creation {
         @Test
-        fun `creation should pass`() {
+        fun `should pass`() {
             listOf(VALID_INT, 50)
                 .map(Int::toPaginationSize)
                 .forEach(::assertNotNull)
@@ -24,7 +24,7 @@ class PaginationSizeTest {
         }
 
         @Test
-        fun `creation should fail`() {
+        fun `should fail`() {
             listOf(9, 51)
                 .map(Int::toPaginationSize)
                 .forEach(::assertNull)
