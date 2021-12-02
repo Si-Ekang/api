@@ -8,7 +8,7 @@ servers:
     variables:
       version:
         descriptions: Major version of the API
-        default: '0'
+        default: '1'
   - description: Local server
     url: http://{host}:{port}/v{version}
     variables:
@@ -21,7 +21,7 @@ servers:
         default: '8080'
       version:
         descriptions: Major version of the API
-        default: '0'
+        default: '1'
 tags:
   - name: Translations
     description: Operations related to translations.

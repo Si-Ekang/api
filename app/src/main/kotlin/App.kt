@@ -16,14 +16,14 @@ fun Application.main() {
     installStatusPages()
     routing {
         serveDocs()
-        get(path = "${Version.V0}/translations") {
+        get(path = "${Version.V1}/translations") {
             handle { getPaginatedTranslations() }
         }
     }
 }
 
 private enum class Version {
-    V0;
+    V1;
 
     override fun toString(): String = name.lowercase()
 }
