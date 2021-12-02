@@ -15,7 +15,6 @@ import io.ktor.http.HttpStatusCode.Companion.NotImplemented
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.response.*
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 suspend fun HandlerContext.getPaginatedTranslations() =
@@ -26,9 +25,8 @@ private suspend fun HandlerContext.devImplementation() {
     val translations: Set<Translation> = coroutineScope {
         val lines: Deferred<List<Map<String, String>>> =
             getTranslationsFromFileAsync(classLoader)
-        val pagination: Deferred<Pagination> =
-            async { getPaginationFromQueryParameters() }
-        lines.await() toPaginatedTranslations pagination.await()
+        val pagination: Pagination = getPaginationFromQueryParameters()
+        lines.await() toPaginatedTranslations pagination
     }
     if (translations.isEmpty()) call.respond(NoContent)
     else call.respond(OK, translations)
