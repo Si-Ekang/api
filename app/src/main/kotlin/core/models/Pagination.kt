@@ -7,7 +7,7 @@ import core.types.StrictlyPositiveInt
 
 infix fun <T> List<T>.getPage(pagination: Pagination): List<T> =
     chunked(pagination.size.value.value)
-        .getOrNull(index = pagination.page.value - 1) ?: emptyList()
+        .getOrElse(index = pagination.page.value - 1) { emptyList() }
 
 infix fun PaginationSize.withPage(page: StrictlyPositiveInt): Pagination =
     Pagination(page, size = this)
