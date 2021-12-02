@@ -1,36 +1,38 @@
 package core.types
 
 import org.junit.jupiter.api.Nested
+import x.assertEquals
+import x.assertNotNull
+import x.assertNull
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 
 class PaginationSizeTest {
-    private companion object {
-        private const val VALID_INT: Int = 10
-    }
+    private val sizeRange: IntRange by lazy { PaginationSize.range }
 
     @Nested
     inner class Creation {
         @Test
         fun `should pass`() {
-            listOf(VALID_INT, 50)
+            val x: Int = sizeRange.first
+            val y: Int = sizeRange.last
+            listOf(x, y)
                 .map(Int::toPaginationSize)
-                .forEach(::assertNotNull)
-            listOf("10", "50")
+                .forEach(PaginationSize?::assertNotNull)
+            listOf(x.toString(), y.toString())
                 .map(String::toPaginationSize)
-                .forEach(::assertNotNull)
+                .forEach(PaginationSize?::assertNotNull)
         }
 
         @Test
         fun `should fail`() {
-            listOf(9, 51)
+            val x: Int = sizeRange.first - 1
+            val y: Int = sizeRange.last + 1
+            listOf(x, y)
                 .map(Int::toPaginationSize)
-                .forEach(::assertNull)
-            listOf("9", "51", "a")
+                .forEach(PaginationSize?::assertNull)
+            listOf(x.toString(), y.toString(), "a")
                 .map(String::toPaginationSize)
-                .forEach(::assertNull)
+                .forEach(PaginationSize?::assertNull)
         }
     }
 
@@ -38,16 +40,16 @@ class PaginationSizeTest {
     inner class Times {
         @Test
         fun `should pass with Int`() {
-            val x: PaginationSize = VALID_INT.toPaginationSize()!!
+            val x: PaginationSize = sizeRange.first.toPaginationSize()!!
             val y = 2
-            assertEquals(expected = x * y, actual = y * x)
+            (x * y) assertEquals (y * x)
         }
 
         @Test
         fun `should pass with StrictlyPositiveInt`() {
-            val x: PaginationSize = VALID_INT.toPaginationSize()!!
+            val x: PaginationSize = sizeRange.first.toPaginationSize()!!
             val y: StrictlyPositiveInt = 2.strictlyPositive()!!
-            assertEquals(expected = x * y, actual = y * x)
+            (x * y) assertEquals (y * x)
         }
     }
 }
