@@ -15,6 +15,8 @@ All notable changes to this project will be documented in this file.
 - `Security` in case of vulnerabilities.
 
 ## Work in progress
+
+## Version 1.1.0 - 2022/01/17
 ### Changed
 - Upgrade Gradle to 7.3.1.
 
