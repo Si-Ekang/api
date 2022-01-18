@@ -1,0 +1,19 @@
+name: Integration
+on:
+  pull_request:
+    branches: [ master ]
+    paths: [ '*.kts', '*gradle*', .github/workflows/*, src/** ]
+  push:
+    branches-ignore: [ master ]
+    paths: [ '*.kts', '*gradle*', .github/workflows/*, src/** ]
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Run tests
+        run: ./gradlew test --no-daemon
