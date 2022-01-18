@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Update configuration for production
         env:
-          CONFIG_FILE: ./app/src/main/resources/application.conf
+          CONFIG_FILE: ./src/main/resources/application.conf
         run: echo "ktor.development = false" >> $CONFIG_FILE
       - name: Package application
         run: ./gradlew installDist --no-daemon
