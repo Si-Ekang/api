@@ -1,15 +1,26 @@
 plugins {
-    kotlin(module = "jvm")
-    kotlin(module = "plugin.serialization") version Kotlin.VERSION
+    kotlin("jvm")
+    kotlin("plugin.serialization") version embeddedKotlinVersion
     application
 }
 
 dependencies {
-    setOf(CSV, Ktor.NETTY, Ktor.SERIALIZATION, LOGBACK)
-        .forEach(this::implementation)
+    // Kotlin
+    implementation(platform(kotlin("bom")))
+    testImplementation(kotlin("test"))
 
-    setOf(kotlin(module = "test"), Ktor.TEST)
-        .forEach(this::testImplementation)
+    // Ktor
+    fun ktor(module: String): String = "io.ktor:ktor-$module"
+    implementation(platform("${ktor("bom")}:1.6.3"))
+    implementation(ktor("server-netty"))
+    implementation(ktor("serialization"))
+    testImplementation(ktor("server-test-host"))
+
+    // Logging
+    implementation("ch.qos.logback:logback-classic:1.2.10")
+
+    // CSV
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.2.0")
 }
 
 application.mainClass.set("AppKt")

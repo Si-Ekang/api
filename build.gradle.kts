@@ -1,7 +1,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins { kotlin(module = "jvm") version Kotlin.VERSION apply false }
+plugins { kotlin("jvm") version embeddedKotlinVersion apply false }
 
 allprojects {
     group = "com.ekang-api"
