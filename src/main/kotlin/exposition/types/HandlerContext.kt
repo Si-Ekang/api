@@ -8,9 +8,6 @@ import kotlin.system.measureTimeMillis
 
 typealias HandlerContext = PipelineContext<Unit, ApplicationCall>
 
-val HandlerContext.classLoader: ClassLoader
-    get() = application.environment.classLoader
-
 @Throws(BadRequestException::class)
 fun <T> HandlerContext.getQueryParameterAs(name: String, map: String.() -> T?):
         T = getQueryParameter(name)

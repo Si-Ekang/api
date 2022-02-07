@@ -9,7 +9,11 @@ fun String.toPaginationSize(): PaginationSize? = toStrictlyPositiveInt()
     ?.let { PaginationSize of it }
 
 @JvmInline
-value class PaginationSize private constructor(val value: StrictlyPositiveInt) {
+value class PaginationSize private constructor(
+    private val _value: StrictlyPositiveInt
+) {
+    val value: Int get() = _value.value
+
     companion object {
         val range: IntRange = 10..50
 

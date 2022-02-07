@@ -27,7 +27,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.10")
 
     // CSV
-    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.2.0")
+    implementation("io.github.kotools:csv:2.1.0")
 }
 
 application.mainClass.set("AppKt")

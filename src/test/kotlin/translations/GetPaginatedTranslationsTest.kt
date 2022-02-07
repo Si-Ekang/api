@@ -1,4 +1,4 @@
-package exposition.routes
+package translations
 
 import core.types.PaginationSize
 import core.types.StrictlyPositiveInt
