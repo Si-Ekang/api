@@ -1,9 +1,9 @@
 package translations
 
+import common.StrictlyPositiveInt
+import common.toStrictlyPositiveInt
 import core.types.PaginationSize
-import core.types.StrictlyPositiveInt
 import core.types.toPaginationSize
-import core.types.toStrictlyPositiveInt
 import exposition.types.HandlerContext
 import exposition.types.getQueryParameterAs
 import io.github.kotools.csv.reader.csvReader

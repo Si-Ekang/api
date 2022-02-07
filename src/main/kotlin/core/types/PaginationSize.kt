@@ -2,6 +2,10 @@
 
 package core.types
 
+import common.StrictlyPositiveInt
+import common.strictlyPositive
+import common.toStrictlyPositiveInt
+
 fun Int.toPaginationSize(): PaginationSize? = strictlyPositive()
     ?.let { PaginationSize of it }
 

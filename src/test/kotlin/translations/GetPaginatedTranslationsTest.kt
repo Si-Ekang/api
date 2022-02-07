@@ -1,7 +1,7 @@
 package translations
 
+import common.StrictlyPositiveInt
 import core.types.PaginationSize
-import core.types.StrictlyPositiveInt
 import exposition.config.installContentNegotiation
 import exposition.config.installStatusPages
 import exposition.types.handle

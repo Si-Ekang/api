@@ -1,6 +1,5 @@
-package core.types
+package common
 
-import core.types.StrictlyPositiveInt.Companion.MIN
 import org.junit.jupiter.api.Nested
 import x.assertNotNull
 import x.assertNull
@@ -11,7 +10,7 @@ class StrictlyPositiveIntTest {
     inner class Creation {
         @Test
         fun `should pass`() {
-            val x: Int = MIN
+            val x: Int = StrictlyPositiveInt.MIN
             x.strictlyPositive()
                 .assertNotNull()
             x.toString()
@@ -21,7 +20,7 @@ class StrictlyPositiveIntTest {
 
         @Test
         fun `should fail`() {
-            val x: Int = MIN - 1
+            val x: Int = StrictlyPositiveInt.MIN - 1
             x.strictlyPositive()
                 .assertNull()
             listOf(x.toString(), "a")
