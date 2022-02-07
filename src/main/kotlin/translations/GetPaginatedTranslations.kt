@@ -29,7 +29,12 @@ private fun HandlerContext.getQueryParametersAsPagination(): Pagination {
 }
 
 @Serializable
-data class Translation(val id: Int, val french: String, val fang: String)
+data class Translation(val id: Int, val french: String, val fang: String) {
+    override fun equals(other: Any?): Boolean =
+        other is Translation && id == other.id
+
+    override fun hashCode(): Int = 31 * id
+}
 
 private data class Pagination(
     val page: StrictlyPositiveInt,
