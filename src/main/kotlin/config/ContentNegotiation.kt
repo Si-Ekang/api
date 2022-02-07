@@ -1,4 +1,4 @@
-package exposition.config
+package config
 
 import io.ktor.application.*
 import io.ktor.features.*

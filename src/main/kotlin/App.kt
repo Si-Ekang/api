@@ -1,6 +1,6 @@
-import exposition.config.installCORS
-import exposition.config.installContentNegotiation
-import exposition.config.installStatusPages
+import config.installCORS
+import config.installContentNegotiation
+import config.installStatusPages
 import exposition.types.handle
 import io.ktor.application.*
 import io.ktor.routing.*

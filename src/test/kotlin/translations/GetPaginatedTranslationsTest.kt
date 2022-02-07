@@ -2,8 +2,8 @@ package translations
 
 import common.PaginationSize
 import common.StrictlyPositiveInt
-import exposition.config.installContentNegotiation
-import exposition.config.installStatusPages
+import config.installContentNegotiation
+import config.installStatusPages
 import exposition.types.handle
 import io.ktor.application.*
 import io.ktor.http.*
