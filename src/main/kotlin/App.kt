@@ -4,9 +4,10 @@ import config.installContentNegotiation
 import config.installStatusPages
 import io.ktor.application.*
 import io.ktor.routing.*
+import io.ktor.server.netty.*
 import translations.getPaginatedTranslations
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 @Suppress("unused")
 fun Application.main() {
@@ -14,14 +15,8 @@ fun Application.main() {
     installCORS()
     installStatusPages()
     routing {
-        get(path = "${Version.V1}/translations") {
+        get("v1/translations") {
             measure { getPaginatedTranslations() }
         }
     }
-}
-
-private enum class Version {
-    V1;
-
-    override fun toString(): String = name.lowercase()
 }
