@@ -6,12 +6,11 @@ import config.installContentNegotiation
 import config.installStatusPages
 import io.ktor.application.*
 import io.ktor.http.*
-import io.ktor.http.HttpMethod.Companion.Get
 import io.ktor.routing.*
 import io.ktor.server.testing.*
-import x.assertEquals
-import x.assertNotNull
-import x.assertNull
+import utils.assertEquals
+import utils.assertNotNull
+import utils.assertNull
 import kotlin.test.Test
 
 private const val PATH: String = "translations"
@@ -30,7 +29,7 @@ private fun TestApplicationEngine.callWith(
     page: Int,
     size: Int
 ): TestApplicationResponse =
-    handleRequest(Get, uri = "$PATH?page=$page&size=$size").response
+    handleRequest(HttpMethod.Get, "$PATH?page=$page&size=$size").response
 
 class GetPaginatedTranslationsTest {
     @Test

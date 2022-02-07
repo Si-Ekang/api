@@ -1,15 +1,15 @@
 package common
 
 import org.junit.jupiter.api.Nested
-import x.assertNotNull
-import x.assertNull
+import utils.assertNotNull
+import utils.assertNull
 import kotlin.test.Test
 
 class PaginationSizeTest {
-    private val sizeRange: IntRange by lazy { PaginationSize.range }
-
     @Nested
     inner class Creation {
+        private val sizeRange: IntRange by lazy { PaginationSize.range }
+
         @Test
         fun `should pass`() {
             val x: Int = sizeRange.first

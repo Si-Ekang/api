@@ -1,8 +1,8 @@
 package common
 
 import org.junit.jupiter.api.Nested
-import x.assertNotNull
-import x.assertNull
+import utils.assertNotNull
+import utils.assertNull
 import kotlin.test.Test
 
 class StrictlyPositiveIntTest {
