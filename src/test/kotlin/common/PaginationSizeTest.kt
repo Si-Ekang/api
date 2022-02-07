@@ -1,4 +1,4 @@
-package core.types
+package common
 
 import org.junit.jupiter.api.Nested
 import x.assertNotNull

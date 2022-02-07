@@ -1,10 +1,4 @@
-@file:Suppress("DEPRECATION")
-
-package core.types
-
-import common.StrictlyPositiveInt
-import common.strictlyPositive
-import common.toStrictlyPositiveInt
+package common
 
 fun Int.toPaginationSize(): PaginationSize? = strictlyPositive()
     ?.let { PaginationSize of it }
@@ -21,7 +15,6 @@ value class PaginationSize private constructor(
     companion object {
         val range: IntRange = 10..50
 
-        @Deprecated(message = "Use `Int.toPaginationSize` instead.")
         infix fun of(value: StrictlyPositiveInt): PaginationSize? =
             value.takeIf { it.value in range }
                 ?.let(::PaginationSize)
