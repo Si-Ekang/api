@@ -1,7 +1,7 @@
+import common.measure
 import config.installCORS
 import config.installContentNegotiation
 import config.installStatusPages
-import exposition.types.handle
 import io.ktor.application.*
 import io.ktor.routing.*
 import translations.getPaginatedTranslations
@@ -15,7 +15,7 @@ fun Application.main() {
     installStatusPages()
     routing {
         get(path = "${Version.V1}/translations") {
-            handle { getPaginatedTranslations() }
+            measure { getPaginatedTranslations() }
         }
     }
 }

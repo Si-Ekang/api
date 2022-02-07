@@ -1,4 +1,4 @@
-package exposition.types
+package common
 
 import io.ktor.application.*
 import io.ktor.features.*
@@ -14,10 +14,10 @@ fun <T> HandlerContext.getQueryParameterAs(name: String, map: String.() -> T?):
     .map()
     ?: throw BadRequestException("Request parameter $name is invalid.")
 
-inline fun HandlerContext.handle(block: HandlerContext.() -> Unit) {
+inline infix fun HandlerContext.measure(handler: HandlerContext.() -> Unit) {
     val httpUri = "${call.request.httpMethod.value} ${call.request.uri}"
     application.log.info("Processing $httpUri...")
-    val time: Long = measureTimeMillis { block() }
+    val time: Long = measureTimeMillis { handler() }
     application.log.info("$httpUri completed in $time ms.")
 }
 

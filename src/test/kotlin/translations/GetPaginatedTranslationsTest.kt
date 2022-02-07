@@ -4,7 +4,6 @@ import common.PaginationSize
 import common.StrictlyPositiveInt
 import config.installContentNegotiation
 import config.installStatusPages
-import exposition.types.handle
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.http.HttpMethod.Companion.Get
@@ -23,9 +22,7 @@ private fun Application.testingModule() {
     installContentNegotiation()
     installStatusPages()
     routing {
-        get(PATH) {
-            handle { getPaginatedTranslations() }
-        }
+        get(PATH) { getPaginatedTranslations() }
     }
 }
 
