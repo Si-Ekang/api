@@ -1,4 +1,4 @@
-package common
+package translations.models
 
 fun Int.strictlyPositive(): StrictlyPositiveInt? = StrictlyPositiveInt of this
 
@@ -10,8 +10,8 @@ value class StrictlyPositiveInt private constructor(val value: Int) {
     companion object {
         const val MIN: Int = 1
 
-        infix fun of(value: Int): StrictlyPositiveInt? =
-            value.takeIf { it >= MIN }
-                ?.let(::StrictlyPositiveInt)
+        infix fun of(value: Int): StrictlyPositiveInt? = value
+            .takeIf { it >= MIN }
+            ?.let(::StrictlyPositiveInt)
     }
 }

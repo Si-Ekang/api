@@ -6,7 +6,7 @@ import config.installStatusPages
 import io.ktor.application.*
 import io.ktor.routing.*
 import io.ktor.server.netty.*
-import translations.getPaginatedTranslations
+import translations.handlers.getPaginatedTranslations
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 

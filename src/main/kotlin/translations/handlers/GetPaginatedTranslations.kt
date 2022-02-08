@@ -1,11 +1,16 @@
-package translations
+package translations.handlers
 
-import common.*
+import common.HandlerContext
+import common.getQueryParameterAs
 import io.github.kotools.csv.reader.csvReader
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.response.*
 import kotlinx.serialization.Serializable
+import translations.models.PaginationSize
+import translations.models.StrictlyPositiveInt
+import translations.models.paginationSize
+import translations.models.toStrictlyPositiveInt
 
 suspend fun HandlerContext.getPaginatedTranslations() {
     val pagination: Pagination = getQueryParametersAsPagination()
@@ -23,8 +28,7 @@ suspend fun HandlerContext.getPaginatedTranslations() {
 private fun HandlerContext.getQueryParametersAsPagination(): Pagination {
     val page: StrictlyPositiveInt =
         getQueryParameterAs("page", String::toStrictlyPositiveInt)
-    val size: PaginationSize =
-        getQueryParameterAs("size", String::toPaginationSize)
+    val size: PaginationSize = getQueryParameterAs("size") { paginationSize }
     return Pagination(page, size)
 }
 

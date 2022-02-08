@@ -1,13 +1,13 @@
-package translations
+package translations.handlers
 
-import common.PaginationSize
-import common.StrictlyPositiveInt
 import config.installContentNegotiation
 import config.installStatusPages
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.routing.*
 import io.ktor.server.testing.*
+import translations.models.PaginationSize
+import translations.models.StrictlyPositiveInt
 import utils.assertEquals
 import utils.assertNotNull
 import utils.assertNull
