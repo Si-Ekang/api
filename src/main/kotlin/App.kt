@@ -1,4 +1,4 @@
-import categories.getCategories
+import categories.handlers.getCategories
 import common.measure
 import config.installCORS
 import config.installContentNegotiation

@@ -1,16 +1,18 @@
 package translations.models
 
+import common.Csv
 import io.github.kotools.csv.reader.csvReader
 import kotlinx.serialization.Serializable
 
-suspend fun readTranslationsFile(pagination: Pagination): Set<Translation> =
-    csvReader<Translation> {
-        file = "translations"
-        pagination {
-            page = pagination.page.value
-            size = pagination.size.value
-        }
-    }.toSet()
+suspend infix fun Csv.getTranslations(pagination: Pagination):
+        Set<Translation> = csvReader<Translation> {
+    file = "translations"
+    folder = this@getTranslations.folder
+    pagination {
+        page = pagination.page.value
+        size = pagination.size.value
+    }
+}.toSet()
 
 @Serializable
 data class Translation(val id: Int, val french: String, val fang: String) {
