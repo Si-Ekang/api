@@ -13,13 +13,11 @@ import utils.assertNotNull
 import utils.assertNull
 import kotlin.test.Test
 
-private const val PATH: String = "translations"
-
 private fun Application.testingModule() {
     installContentNegotiation()
     installStatusPages()
     routing {
-        get(PATH) { getPaginatedTranslations() }
+        get { getPaginatedTranslations() }
     }
 }
 
@@ -27,7 +25,7 @@ private fun TestApplicationEngine.callWith(
     page: Int,
     size: Int
 ): TestApplicationResponse =
-    handleRequest(HttpMethod.Get, "$PATH?page=$page&size=$size").response
+    handleRequest(HttpMethod.Get, "?page=$page&size=$size").response
 
 class GetPaginatedTranslationsTest {
     private val sizeRange: IntRange = PaginationSize.range
