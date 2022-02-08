@@ -1,9 +1,10 @@
 package translations.models
 
-fun Int.strictlyPositive(): StrictlyPositiveInt? = StrictlyPositiveInt of this
+val Int.strictlyPositive: StrictlyPositiveInt?
+    get() = StrictlyPositiveInt of this
 
-fun String.toStrictlyPositiveInt(): StrictlyPositiveInt? = toIntOrNull()
-    ?.strictlyPositive()
+val String.strictlyPositiveInt: StrictlyPositiveInt?
+    get() = toIntOrNull()?.strictlyPositive
 
 @JvmInline
 value class StrictlyPositiveInt private constructor(val value: Int) {

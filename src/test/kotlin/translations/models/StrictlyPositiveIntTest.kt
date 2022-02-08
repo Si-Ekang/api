@@ -5,23 +5,15 @@ import utils.assertNull
 import kotlin.test.Test
 
 class StrictlyPositiveIntTest {
-    @Test
-    fun `creation should pass`() {
-        val x: Int = StrictlyPositiveInt.MIN
-        x.strictlyPositive()
-            .assertNotNull()
-        x.toString()
-            .toStrictlyPositiveInt()
-            .assertNotNull()
-    }
+    private val Int.strictlyPositives: List<StrictlyPositiveInt?>
+        get() = listOf(strictlyPositive, toString().strictlyPositiveInt)
 
     @Test
-    fun `creation should fail`() {
-        val x: Int = StrictlyPositiveInt.MIN - 1
-        x.strictlyPositive()
-            .assertNull()
-        listOf(x.toString(), "a")
-            .map(String::toStrictlyPositiveInt)
-            .forEach(StrictlyPositiveInt?::assertNull)
-    }
+    fun `creation should pass`() = StrictlyPositiveInt.MIN.strictlyPositives
+        .forEach(StrictlyPositiveInt?::assertNotNull)
+
+    @Test
+    fun `creation should fail`() = (StrictlyPositiveInt.MIN - 1).run {
+        strictlyPositives + "a".strictlyPositiveInt
+    }.forEach(StrictlyPositiveInt?::assertNull)
 }

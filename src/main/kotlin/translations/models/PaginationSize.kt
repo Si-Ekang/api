@@ -1,10 +1,10 @@
 package translations.models
 
 val Int.paginationSize: PaginationSize?
-    get() = strictlyPositive()?.let { PaginationSize of it }
+    get() = strictlyPositive?.let { PaginationSize of it }
 
 val String.paginationSize: PaginationSize?
-    get() = toStrictlyPositiveInt()?.let { PaginationSize of it }
+    get() = strictlyPositiveInt?.let { PaginationSize of it }
 
 @JvmInline
 value class PaginationSize private constructor(

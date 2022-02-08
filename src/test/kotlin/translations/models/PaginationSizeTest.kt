@@ -15,10 +15,9 @@ class PaginationSizeTest {
 
     @Test
     fun `creation should fail`(): Unit =
-        listOf(sizeRange.first - 1, sizeRange.last + 1)
-            .run {
-                map(Int::paginationSize) + "a".paginationSize + map {
-                    it.toString().paginationSize
-                }
-            }.forEach(PaginationSize?::assertNull)
+        listOf(sizeRange.first - 1, sizeRange.last + 1).run {
+            map(Int::paginationSize) + "a".paginationSize + map {
+                it.toString().paginationSize
+            }
+        }.forEach(PaginationSize?::assertNull)
 }

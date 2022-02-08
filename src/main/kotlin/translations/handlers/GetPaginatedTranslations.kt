@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 import translations.models.PaginationSize
 import translations.models.StrictlyPositiveInt
 import translations.models.paginationSize
-import translations.models.toStrictlyPositiveInt
+import translations.models.strictlyPositiveInt
 
 suspend fun HandlerContext.getPaginatedTranslations() {
     val pagination: Pagination = getQueryParametersAsPagination()
@@ -27,7 +27,7 @@ suspend fun HandlerContext.getPaginatedTranslations() {
 
 private fun HandlerContext.getQueryParametersAsPagination(): Pagination {
     val page: StrictlyPositiveInt =
-        getQueryParameterAs("page", String::toStrictlyPositiveInt)
+        getQueryParameterAs("page") { strictlyPositiveInt }
     val size: PaginationSize = getQueryParameterAs("size") { paginationSize }
     return Pagination(page, size)
 }
