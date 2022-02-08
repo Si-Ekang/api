@@ -18,6 +18,10 @@ All notable changes to this project will be documented in this file.
 
 ## Work in progress
 
+### Added
+
+- Route `GET /categories` for retrieving all categories.
+
 ### Changed
 
 - Update paginated translations retrieving by adding an `id` to each of them.
