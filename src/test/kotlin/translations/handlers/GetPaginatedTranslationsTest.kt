@@ -15,8 +15,6 @@ import kotlin.test.Test
 
 private const val PATH: String = "translations"
 
-private val sizeRange: IntRange = PaginationSize.range
-
 private fun Application.testingModule() {
     installContentNegotiation()
     installStatusPages()
@@ -32,33 +30,33 @@ private fun TestApplicationEngine.callWith(
     handleRequest(HttpMethod.Get, "$PATH?page=$page&size=$size").response
 
 class GetPaginatedTranslationsTest {
+    private val sizeRange: IntRange = PaginationSize.range
+
     @Test
     fun `should return 200 OK`(): Unit =
         withTestApplication(Application::testingModule) {
-            val page: Int = StrictlyPositiveInt.MIN
-            val size: Int = sizeRange.random()
-            val response: TestApplicationResponse = callWith(page, size)
-            HttpStatusCode.OK assertEquals response.status()
-            response.content.assertNotNull()
+            callWith(StrictlyPositiveInt.MIN, sizeRange.random()).run {
+                status() assertEquals HttpStatusCode.OK
+                content.assertNotNull()
+            }
         }
 
     @Test
     fun `should return 204 No Content`(): Unit =
         withTestApplication(Application::testingModule) {
-            val size: Int = sizeRange.last
-            val response: TestApplicationResponse = callWith(page = 1000, size)
-            HttpStatusCode.NoContent assertEquals response.status()
-            response.content.assertNull()
+            callWith(page = 1000, sizeRange.last).run {
+                status() assertEquals HttpStatusCode.NoContent
+                content.assertNull()
+            }
         }
 
     @Test
     fun `should return 400 Bad Request with invalid page`(): Unit =
         withTestApplication(Application::testingModule) {
-            val page: Int = StrictlyPositiveInt.MIN - 1
-            val size: Int = sizeRange.random()
-            val response: TestApplicationResponse = callWith(page, size)
-            HttpStatusCode.BadRequest assertEquals response.status()
-            response.assertNotNull()
+            callWith(StrictlyPositiveInt.MIN - 1, sizeRange.random()).run {
+                status() assertEquals HttpStatusCode.BadRequest
+                content.assertNotNull()
+            }
         }
 
     @Test
@@ -67,7 +65,7 @@ class GetPaginatedTranslationsTest {
             listOf(sizeRange.first - 1, sizeRange.last + 1)
                 .map { callWith(StrictlyPositiveInt.MIN, it) }
                 .forEach {
-                    HttpStatusCode.BadRequest assertEquals it.status()
+                    it.status() assertEquals HttpStatusCode.BadRequest
                     it.content.assertNotNull()
                 }
         }
