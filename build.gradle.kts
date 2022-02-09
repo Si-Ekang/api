@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.ekang-api"
-version = "1.2.0"
+version = "1.2.1"
 
 repositories(RepositoryHandler::mavenCentral)
 
