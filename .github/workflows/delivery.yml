@@ -40,8 +40,8 @@ jobs:
         run: ./gradlew installDist --no-daemon
       - name: Build images
         run: docker build -t $GITHUB_REGISTRY/$GITHUB_IMAGE . &&
-          docker tag $GITHUB_REGISTRY/$GITHUB_IMAGE $GITHUB_REGISTRY/$GITHUB_IMAGE:$VERSION &&
-          docker tag $GITHUB_REGISTRY/$GITHUB_IMAGE $HEROKU_REGISTRY/$HEROKU_IMAGE
+          docker tag "$GITHUB_REGISTRY/$GITHUB_IMAGE" "$GITHUB_REGISTRY/$GITHUB_IMAGE:$VERSION" &&
+          docker tag "$GITHUB_REGISTRY/$GITHUB_IMAGE" "$HEROKU_REGISTRY/$HEROKU_IMAGE"
       - name: Login to GitHub registry
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
