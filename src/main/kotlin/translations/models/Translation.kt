@@ -4,10 +4,19 @@ import common.Csv
 import io.github.kotools.csv.reader.csvReader
 import kotlinx.serialization.Serializable
 
+private const val CSV_FILE: String = "translations"
+
+suspend infix fun Csv.getTranslation(id: Int): Translation? =
+    csvReader<Translation> {
+        file = CSV_FILE
+        folder = FOLDER
+        filter { this.id == id }
+    }.firstOrNull()
+
 suspend infix fun Csv.getTranslations(pagination: Pagination):
         Set<Translation> = csvReader<Translation> {
-    file = "translations"
-    folder = this@getTranslations.folder
+    file = CSV_FILE
+    folder = FOLDER
     pagination {
         page = pagination.page.value
         size = pagination.size.value

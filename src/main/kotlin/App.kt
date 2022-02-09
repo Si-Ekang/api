@@ -1,4 +1,5 @@
 import categories.handlers.getCategories
+import categories.handlers.getTranslationsOfCategory
 import common.measure
 import config.installCORS
 import config.installContentNegotiation
@@ -17,8 +18,13 @@ fun Application.main() {
     installStatusPages()
     routing {
         route("v1") {
-            get("categories") {
-                measure { getCategories() }
+            route("categories") {
+                get {
+                    measure { getCategories() }
+                }
+                get("{id}/translations") {
+                    measure { getTranslationsOfCategory() }
+                }
             }
             get("translations") {
                 measure { getPaginatedTranslations() }

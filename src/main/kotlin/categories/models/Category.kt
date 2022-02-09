@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 suspend fun Csv.getCategories(): Set<Category> = csvReader<Category> {
     file = "categories"
-    folder = this@getCategories.folder
+    folder = FOLDER
 }.toSet()
 
 @Serializable

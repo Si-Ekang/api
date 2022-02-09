@@ -8,6 +8,14 @@ import kotlin.system.measureTimeMillis
 
 typealias HandlerContext = PipelineContext<Unit, ApplicationCall>
 
+private const val ID_PARAM: String = "id"
+
+@Throws(BadRequestException::class)
+fun HandlerContext.getIdFromPath(): Int = getPathParameter(ID_PARAM)
+    .toIntOrNull()
+    ?.takeIf { it > 0 }
+    ?: throw BadRequestException("Request parameter $ID_PARAM is invalid.")
+
 @Throws(MissingRequestParameterException::class)
 infix fun HandlerContext.getQueryParameter(name: String): String = call.request
     .queryParameters[name]
@@ -27,3 +35,7 @@ inline infix fun HandlerContext.measure(handler: HandlerContext.() -> Unit) {
     val time: Long = measureTimeMillis { handler() }
     application.log.info("$httpUri completed in $time ms.")
 }
+
+@Throws(MissingRequestParameterException::class)
+private infix fun HandlerContext.getPathParameter(name: String): String =
+    call.parameters[name] ?: throw MissingRequestParameterException(name)
