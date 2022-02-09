@@ -1,5 +1,6 @@
 import categories.handlers.getCategories
 import categories.handlers.getTranslationsOfCategory
+import common.ID_PARAM
 import common.measure
 import config.installCORS
 import config.installContentNegotiation
@@ -22,7 +23,7 @@ fun Application.main() {
                 get {
                     measure { getCategories() }
                 }
-                get("{id}/translations") {
+                get("{$ID_PARAM}/translations") {
                     measure { getTranslationsOfCategory() }
                 }
             }

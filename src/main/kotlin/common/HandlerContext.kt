@@ -8,7 +8,7 @@ import kotlin.system.measureTimeMillis
 
 typealias HandlerContext = PipelineContext<Unit, ApplicationCall>
 
-private const val ID_PARAM: String = "id"
+const val ID_PARAM: String = "id"
 
 @Throws(BadRequestException::class)
 fun HandlerContext.getIdFromPath(): Int = getPathParameter(ID_PARAM)
