@@ -2,13 +2,20 @@ package common
 
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.request.*
+import io.ktor.response.*
 import io.ktor.util.pipeline.*
 import kotlin.system.measureTimeMillis
 
 typealias HandlerContext = PipelineContext<Unit, ApplicationCall>
 
 const val ID_PARAM: String = "id"
+
+@Suppress("unused")
+suspend inline fun HandlerContext.devOnly(block: HandlerContext.() -> Unit):
+        Unit = if (application.developmentMode) block()
+else call.respond(HttpStatusCode.NotImplemented)
 
 @Throws(BadRequestException::class)
 fun HandlerContext.getIdFromPath(): Int = getPathParameter(ID_PARAM)
