@@ -14,11 +14,14 @@ jobs:
       - name: Login to Heroku
         env:
           API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          FILE: .netrc
+          FILE: ~/.netrc
           LOGIN: ${{ secrets.HEROKU_LOGIN }}
         run: echo "machine api.heroku.com" > $FILE &&
-          echo "\tlogin $LOGIN" >> $FILE &&
-          echo "\tpassword $API_KEY" >> $FILE
+          echo "  login $LOGIN" >> $FILE &&
+          echo "  password $API_KEY" >> $FILE &&
+          echo "machine git.heroku.com" >> $FILE &&
+          echo "  login $LOGIN" >> $FILE &&
+          echo "  password $API_KEY" >> $FILE
       - name: Deploy image
         env:
           HEROKU_APP: ekang-api
