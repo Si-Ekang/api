@@ -1,8 +1,0 @@
-type: object
-properties:
-  french:
-    type: string
-    example: coq
-  fang:
-    type: string
-    example: maiam

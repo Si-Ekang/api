@@ -4,7 +4,7 @@ RUN addgroup --system appuser && adduser -S -s /bin/false -G appuser appuser
 WORKDIR /app
 
 # Copy necessary files
-COPY app/build/install/app/ ./
+COPY build/install/api/ ./
 
 # Apply user group
 RUN chown -R appuser:appuser .
@@ -12,5 +12,5 @@ USER appuser
 
 # Prepare for run
 WORKDIR /app/bin
-CMD ["./app"]
+CMD ["./api"]
 EXPOSE 8080
