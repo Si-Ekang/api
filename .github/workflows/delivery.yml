@@ -17,7 +17,8 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Get version from configuration
         id: get-version
-        run: echo ::set-output name=version::$( ./gradlew printVersion -q )
+        run: ./gradlew printVersion &&
+          echo ::set-output name=version::$( ./gradlew printVersion -q )
   # ---------- Stage 2 ----------
   deliver:
     name: Deliver image to registries
