@@ -21,6 +21,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Route `GET /categories` for retrieving all categories.
+- Route `GET /categories/{id}/translations` for retrieving all category's
+  translations.
 
 ### Changed
 
