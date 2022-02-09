@@ -3,6 +3,7 @@ on:
   push:
     branches: [ master ]
     paths: [ .github/workflows/deployment.yml ]
+  workflow_dispatch:
   workflow_run:
     workflows: [ Delivery ]
     types: [ completed ]
