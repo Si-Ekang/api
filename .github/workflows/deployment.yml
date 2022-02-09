@@ -17,15 +17,15 @@ jobs:
         run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sudo sh
       - name: Login to Heroku
         env:
-          API_KEY: ${{ secrets.HEROKU_API_KEY }}
           FILE: .netrc
           LOGIN: ${{ secrets.HEROKU_LOGIN }}
+          TOKEN: ${{ secrets.HEROKU_TOKEN }}
         run: echo "machine api.heroku.com" > $FILE &&
           echo "  login $LOGIN" >> $FILE &&
-          echo "  password $API_KEY" >> $FILE &&
+          echo "  password $TOKEN" >> $FILE &&
           echo "machine git.heroku.com" >> $FILE &&
           echo "  login $LOGIN" >> $FILE &&
-          echo "  password $API_KEY" >> $FILE
+          echo "  password $TOKEN" >> $FILE
       - name: Deploy image
         env:
           HEROKU_APP: ekang-api
