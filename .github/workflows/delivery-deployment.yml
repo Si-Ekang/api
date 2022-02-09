@@ -1,13 +1,16 @@
-name: Delivery
+name: Delivery & Deployment
 on:
-  push:
-    branches: [ master ]
-    paths: [ '*.kts', '*gradle*', .github/workflows/delivery.yml, src/** ]
+  workflow_run:
+    workflows: [ Integration ]
+    types: [ completed ]
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 jobs:
   # ---------- Stage 1 ----------
   get-version:
     name: Get version from configuration
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     outputs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
@@ -17,8 +20,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Get version from configuration
         id: get-version
-        run: ./gradlew printVersion &&
-          echo ::set-output name=version::$( ./gradlew printVersion -q )
+        run: echo ::set-output name=version::$( ./gradlew printVersion -q )
   # ---------- Stage 2 ----------
   deliver:
     name: Deliver image to registries
@@ -52,10 +54,28 @@ jobs:
       - name: Logout from GitHub registry
         run: docker logout $GITHUB_REGISTRY
       - name: Login to Heroku Registry
-        env:
-          API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: echo $API_KEY | docker login $HEROKU_REGISTRY -u _ --password-stdin
+        run: echo $HEROKU_API_KEY |
+          docker login $HEROKU_REGISTRY -u _ --password-stdin
       - name: Push image to Heroku registry
         run: docker push $HEROKU_REGISTRY/$HEROKU_IMAGE
       - name: Logout from Heroku registry
         run: docker logout $HEROKU_REGISTRY
+  # ---------- Stage 3 ----------
+  deploy:
+    name: Deploy image in production
+    runs-on: ubuntu-latest
+    needs: deliver
+    steps:
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sudo sh
+      - name: Login to Heroku
+        env:
+          FILE: .netrc
+          LOGIN: ${{ secrets.HEROKU_LOGIN }}
+        run: echo "machine api.heroku.com" > $FILE &&
+          echo "  login $LOGIN" >> $FILE &&
+          echo "  password $HEROKU_API_KEY" >> $FILE
+      - name: Deploy image
+        env:
+          APP_NAME: ekang-api
+        run: heroku container:release web -a $APP_NAME
