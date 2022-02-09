@@ -2,7 +2,7 @@ name: Delivery
 on:
   push:
     branches: [ master ]
-    paths: [ '*.kts', '*gradle*', .github/workflows/*, src/** ]
+    paths: [ '*.kts', '*gradle*', .github/workflows/delivery.yml, src/** ]
 jobs:
   # ---------- Stage 1 ----------
   get-version:
