@@ -23,11 +23,14 @@ dependencies {
     implementation(ktor("serialization"))
     testImplementation(ktor("server-test-host"))
 
+    // Kotools
+    fun kotools(module: String, version: String): String =
+        "io.github.kotools:$module:$version"
+    implementation(kotools("csv", "[2.1,2.2["))
+    testImplementation(kotools("assert", "[2.1,2.2["))
+
     // Logging
     implementation("ch.qos.logback:logback-classic:1.2.10")
-
-    // CSV
-    implementation("io.github.kotools:csv:2.1.0")
 }
 
 application.mainClass.set("AppKt")
