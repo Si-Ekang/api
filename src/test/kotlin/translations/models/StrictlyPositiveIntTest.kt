@@ -1,8 +1,8 @@
 package translations.models
 
-import utils.assertNotNull
-import utils.assertNull
-import kotlin.test.Test
+import kotools.assert.Test
+import kotools.assert.assertNotNull
+import kotools.assert.assertNull
 
 class StrictlyPositiveIntTest {
     private val Int.strictlyPositives: List<StrictlyPositiveInt?>

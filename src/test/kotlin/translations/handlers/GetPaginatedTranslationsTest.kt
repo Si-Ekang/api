@@ -6,19 +6,22 @@ import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.routing.*
 import io.ktor.server.testing.*
+import kotools.assert.Test
+import kotools.assert.assertEquals
+import kotools.assert.assertNotNull
+import kotools.assert.assertNull
 import translations.models.PaginationSize
 import translations.models.StrictlyPositiveInt
-import utils.assertEquals
-import utils.assertNotNull
-import utils.assertNull
-import kotlin.test.Test
 
-private fun Application.testingModule() {
-    installContentNegotiation()
-    installStatusPages()
-    routing {
-        get { getPaginatedTranslations() }
+private fun <R> testApplication(test: TestApplicationEngine.() -> R) {
+    val testingModule: Application.() -> Unit = {
+        installContentNegotiation()
+        installStatusPages()
+        routing {
+            get { getPaginatedTranslations() }
+        }
     }
+    withTestApplication(testingModule, test)
 }
 
 private fun TestApplicationEngine.callWith(
@@ -31,26 +34,24 @@ class GetPaginatedTranslationsTest {
     private val sizeRange: IntRange = PaginationSize.range
 
     @Test
-    fun `should return 200 OK`(): Unit =
-        withTestApplication(Application::testingModule) {
-            callWith(StrictlyPositiveInt.MIN, sizeRange.random()).run {
-                status() assertEquals HttpStatusCode.OK
-                content.assertNotNull()
-            }
+    fun `should return 200 OK`(): Unit = testApplication {
+        callWith(StrictlyPositiveInt.MIN, sizeRange.random()).run {
+            status() assertEquals HttpStatusCode.OK
+            content.assertNotNull()
         }
+    }
 
     @Test
-    fun `should return 204 No Content`(): Unit =
-        withTestApplication(Application::testingModule) {
-            callWith(page = 1000, sizeRange.last).run {
-                status() assertEquals HttpStatusCode.NoContent
-                content.assertNull()
-            }
+    fun `should return 204 No Content`(): Unit = testApplication {
+        callWith(page = 1000, sizeRange.last).run {
+            status() assertEquals HttpStatusCode.NoContent
+            content.assertNull()
         }
+    }
 
     @Test
     fun `should return 400 Bad Request with invalid page`(): Unit =
-        withTestApplication(Application::testingModule) {
+        testApplication {
             callWith(StrictlyPositiveInt.MIN - 1, sizeRange.random()).run {
                 status() assertEquals HttpStatusCode.BadRequest
                 content.assertNotNull()
@@ -59,7 +60,7 @@ class GetPaginatedTranslationsTest {
 
     @Test
     fun `should return 400 Bad Request with invalid size`(): Unit =
-        withTestApplication(Application::testingModule) {
+        testApplication {
             listOf(sizeRange.first - 1, sizeRange.last + 1)
                 .map { callWith(StrictlyPositiveInt.MIN, it) }
                 .forEach {
