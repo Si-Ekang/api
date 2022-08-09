@@ -6,27 +6,36 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.util.pipeline.*
+import kotools.types.number.StrictlyPositiveInt
+import kotools.types.string.NotBlankString
 import kotlin.system.measureTimeMillis
 
 typealias HandlerContext = PipelineContext<Unit, ApplicationCall>
 
-const val ID_PARAM: String = "id"
+val idParameter: NotBlankString = NotBlankString("id")
 
 @Suppress("unused")
 suspend inline fun HandlerContext.devOnly(block: HandlerContext.() -> Unit):
         Unit = if (application.developmentMode) block()
 else call.respond(HttpStatusCode.NotImplemented)
 
+/**
+ * Retrieves the id parameter from path, or throws a [BadRequestException] if
+ * the id is not strictly positive.
+ */
 @Throws(BadRequestException::class)
-fun HandlerContext.getIdFromPath(): Int = getPathParameter(ID_PARAM)
-    .toIntOrNull()
-    ?.takeIf { it > 0 }
-    ?: throw BadRequestException("Request parameter $ID_PARAM is invalid.")
+fun HandlerContext.getIdFromPath(): StrictlyPositiveInt =
+    getPathParameter(idParameter)
+        .toIntOrNull()
+        ?.let(StrictlyPositiveInt.Companion::orNull)
+        ?: throw BadRequestException(
+            "Request parameter $idParameter is invalid."
+        )
 
 @Throws(MissingRequestParameterException::class)
-infix fun HandlerContext.getQueryParameter(name: String): String = call.request
-    .queryParameters[name]
-    ?: throw MissingRequestParameterException(name)
+infix fun HandlerContext.getQueryParameter(name: String): String =
+    call.request.queryParameters[name]
+        ?: throw MissingRequestParameterException(name)
 
 @Throws(BadRequestException::class)
 inline fun <T : Any> HandlerContext.getQueryParameterAs(
@@ -44,5 +53,10 @@ inline infix fun HandlerContext.measure(handler: HandlerContext.() -> Unit) {
 }
 
 @Throws(MissingRequestParameterException::class)
-private infix fun HandlerContext.getPathParameter(name: String): String =
-    call.parameters[name] ?: throw MissingRequestParameterException(name)
+private infix fun HandlerContext.getPathParameter(
+    name: NotBlankString
+): String {
+    val parameterName: String = name.value
+    return call.parameters[parameterName]
+        ?: throw MissingRequestParameterException(parameterName)
+}

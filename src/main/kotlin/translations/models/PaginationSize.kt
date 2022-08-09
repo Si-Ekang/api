@@ -1,10 +1,15 @@
 package translations.models
 
+import kotools.types.number.StrictlyPositiveInt
+import kotools.types.number.toStrictlyPositiveIntOrNull
+
 val Int.paginationSize: PaginationSize?
-    get() = strictlyPositive?.let { PaginationSize of it }
+    get() = toStrictlyPositiveIntOrNull()?.let(PaginationSize.Companion::of)
 
 val String.paginationSize: PaginationSize?
-    get() = strictlyPositiveInt?.let { PaginationSize of it }
+    get() = toIntOrNull()
+        ?.toStrictlyPositiveIntOrNull()
+        ?.let(PaginationSize.Companion::of)
 
 @JvmInline
 value class PaginationSize private constructor(

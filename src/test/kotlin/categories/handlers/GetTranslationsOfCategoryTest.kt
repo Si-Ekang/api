@@ -1,6 +1,6 @@
 package categories.handlers
 
-import common.ID_PARAM
+import common.idParameter
 import config.installContentNegotiation
 import config.installStatusPages
 import io.ktor.application.*
@@ -17,7 +17,7 @@ private fun <R> testApplication(test: TestApplicationEngine.() -> R) {
         installContentNegotiation()
         installStatusPages()
         routing {
-            get("{$ID_PARAM}") { getTranslationsOfCategory() }
+            get("{$idParameter}") { getTranslationsOfCategory() }
         }
     }
     withTestApplication(testingModule, test)

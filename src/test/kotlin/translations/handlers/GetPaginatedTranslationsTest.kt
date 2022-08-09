@@ -10,8 +10,8 @@ import kotools.assert.Test
 import kotools.assert.assertEquals
 import kotools.assert.assertNotNull
 import kotools.assert.assertNull
+import kotools.types.number.StrictlyPositiveInt
 import translations.models.PaginationSize
-import translations.models.StrictlyPositiveInt
 
 private fun <R> testApplication(test: TestApplicationEngine.() -> R) {
     val testingModule: Application.() -> Unit = {
@@ -35,7 +35,7 @@ class GetPaginatedTranslationsTest {
 
     @Test
     fun `should return 200 OK`(): Unit = testApplication {
-        callWith(StrictlyPositiveInt.MIN, sizeRange.random()).run {
+        callWith(StrictlyPositiveInt.min.value, sizeRange.random()).run {
             status() assertEquals HttpStatusCode.OK
             content.assertNotNull()
         }
@@ -52,7 +52,7 @@ class GetPaginatedTranslationsTest {
     @Test
     fun `should return 400 Bad Request with invalid page`(): Unit =
         testApplication {
-            callWith(StrictlyPositiveInt.MIN - 1, sizeRange.random()).run {
+            callWith(StrictlyPositiveInt.min - 1, sizeRange.random()).run {
                 status() assertEquals HttpStatusCode.BadRequest
                 content.assertNotNull()
             }
@@ -62,7 +62,7 @@ class GetPaginatedTranslationsTest {
     fun `should return 400 Bad Request with invalid size`(): Unit =
         testApplication {
             listOf(sizeRange.first - 1, sizeRange.last + 1)
-                .map { callWith(StrictlyPositiveInt.MIN, it) }
+                .map { callWith(StrictlyPositiveInt.min.value, it) }
                 .forEach {
                     it.status() assertEquals HttpStatusCode.BadRequest
                     it.content.assertNotNull()
